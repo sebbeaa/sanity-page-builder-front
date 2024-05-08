@@ -1,0 +1,14 @@
+{
+  "cleanUrls": true,
+  "framework": "nextjs",
+  "buildCommand": "pnpm build",
+  "devCommand": "pnpm dev",
+  "installCommand": "pnpm i",
+
+  "images": {
+    "sizes": [256, 640, 1080, 2048, 3840],
+    "minimumCacheTTL": 60,
+    "formats": ["image/webp"],
+    "dangerouslyAllowSVG": false
+  }
+}

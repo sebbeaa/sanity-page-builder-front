@@ -1,0 +1,10 @@
+.env  
+!\*.env
+
+.gitignore
+/node_modules
+/dist
+/.sanity
+/.vscode
+/.next
+package-lock.json
