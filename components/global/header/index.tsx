@@ -1,5 +1,3 @@
-"use server";
-
 import { HeaderNav } from "./header";
 import { NavHeader } from "../nav/nav";
 export default async function Header() {

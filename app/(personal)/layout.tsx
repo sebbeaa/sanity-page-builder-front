@@ -1,6 +1,31 @@
+import { loadHomePage, loadSettings } from "@/actions/client/loadQuery";
+import { urlForOpenGraphImage } from "@/actions/client/queries";
 import Footer from "@/components/global/footer";
 import Header from "@/components/global/header";
+import { Metadata } from "next";
+
 import { Suspense } from "react";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const [{ data: settings }, { data: homePage }] = await Promise.all([
+    loadSettings(),
+    loadHomePage(),
+  ]);
+
+  const ogImage = urlForOpenGraphImage(settings?.ogImage);
+  return {
+    title: homePage?.title
+      ? {
+          template: `%s | ${homePage.title}`,
+          default: homePage.seoTitle || "Personal website",
+        }
+      : undefined,
+    description: homePage.overview,
+    openGraph: {
+      images: ogImage ? [ogImage] : [],
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
