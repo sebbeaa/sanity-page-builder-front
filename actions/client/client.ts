@@ -10,17 +10,6 @@ const client = createClient({
   apiVersion,
   useCdn: process.env.NODE_ENV === "development" ? true : false,
   perspective: "published",
-  stega: {
-    studioUrl: "https://visual-sanity-page-builder.vercel.app",
-
-    filter: (props) => {
-      if (props.sourcePath.at(-1) === "title") {
-        return true;
-      }
-
-      return props.filterDefault(props);
-    },
-  },
 });
 
 export default client;
