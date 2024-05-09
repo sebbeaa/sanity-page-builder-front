@@ -10,8 +10,6 @@ const client = createClient({
   apiVersion,
   useCdn: process.env.NODE_ENV === "development" ? true : false,
   perspective: "published",
-  token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
-  ignoreBrowserTokenWarning: true,
 });
 
 export default client;

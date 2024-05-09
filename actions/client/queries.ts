@@ -1,11 +1,16 @@
 import createImageUrlBuilder from "@sanity/image-url";
 import type { Image } from "sanity";
 import { dataset, projectId } from "./api";
+import { groq } from "next-sanity";
 
 const imageBuilder = createImageUrlBuilder({
   projectId: projectId || "",
   dataset: dataset || "",
 });
+
+export const homePageQuery = groq`*[_type == "homeDocument"][0]`;
+export const settingsQuery = groq`*[_type == "settings"][0]`;
+export const pageBySlugQuery = groq`*[_type == "pages" && slug.current == $slug][0]`;
 
 export const urlForImage = (source: Image | undefined) => {
   // Ensure that source image contains a valid reference

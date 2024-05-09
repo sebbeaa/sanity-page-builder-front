@@ -7,11 +7,11 @@ import client from "@/actions/client/client";
 
 import { token } from "@/actions/client/api";
 import { groq } from "next-sanity";
+import { homePageQuery, pageBySlugQuery, settingsQuery } from "./queries";
 
 const serverClient = client.withConfig({
   token,
   // Enable stega if it's a Vercel preview deployment, as the Vercel Toolbar has controls that shows overlays
-  stega: process.env.VERCEL_ENV === "preview",
 });
 
 /**
@@ -43,10 +43,6 @@ export const loadQuery = ((query, params = {}, options = {} as any) => {
     // Enable stega if in Draft Mode, to enable overlays when outside Sanity Studio
   } as any);
 }) satisfies typeof queryStore.loadQuery;
-
-const homePageQuery = groq`*[_type == "homeDocument"][0]`;
-const settingsQuery = groq`*[_type == "settings"][0]`;
-const pageBySlugQuery = groq`*[_type == "pages" && slug.current == $slug][0]`;
 
 export const loadHomePage = async () => {
   return loadQuery<any | null>(homePageQuery, {}, {
