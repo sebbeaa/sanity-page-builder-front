@@ -11,7 +11,7 @@ const client = createClient({
   useCdn: revalidateSecret ? false : true,
   perspective: "published",
   stega: {
-    studioUrl: "/",
+    studioUrl: "https://visual-sanity-page-builder.vercel.app",
     logger: console,
     filter: (props) => {
       if (props.sourcePath.at(-1) === "title") {
