@@ -22,14 +22,9 @@ const serverClient = client.withConfig({
  */
 queryStore.setServerClient(serverClient);
 
-const usingCdn = serverClient.config().useCdn;
+const usingCdn = serverClient.config();
 // Automatically handle draft mode
 export const loadQuery = ((query, params = {}, options = {} as any) => {
-  const {
-    perspective = process.env.VERCEL_ENV === "preview"
-      ? "previewDrafts"
-      : "published",
-  } = options;
   // Don't cache by default
   let revalidate: NextFetchRequestConfig["revalidate"] = 0;
   // If `next.tags` is set, and we're not using the CDN, then it's safe to cache
@@ -44,9 +39,8 @@ export const loadQuery = ((query, params = {}, options = {} as any) => {
       revalidate,
       ...(options.next || {}),
     },
-    perspective,
+
     // Enable stega if in Draft Mode, to enable overlays when outside Sanity Studio
-    stega: process.env.VERCEL_ENV === "preview",
   } as any);
 }) satisfies typeof queryStore.loadQuery;
 
