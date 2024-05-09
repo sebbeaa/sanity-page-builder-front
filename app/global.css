@@ -1,0 +1,44 @@
+nav {
+  background-color: #333;
+  padding: 10px;
+  color: white;
+}
+
+.checkbox-label {
+  display: block;
+  position: relative;
+}
+
+.menu {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 18px;
+  padding: 10px;
+  background: #666;
+  border-radius: 5px;
+}
+
+.menu-items {
+  display: hidden !important;
+  position: absolute;
+  background-color: #444;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  width: 100%;
+  left: 0;
+  top: 100%;
+}
+
+.menu-items a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.menu-items a:hover {
+  background-color: #555;
+}
+
+#nav-toggle:checked ~ .menu-items {
+  display: block;
+}
