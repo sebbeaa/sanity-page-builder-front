@@ -1,5 +1,5 @@
 import { createClient } from "next-sanity";
-import { projectId, dataset, apiVersion } from "./api";
+import { projectId, dataset, apiVersion, revalidateSecret } from "./api";
 // Your code here
 const pId: string | any =
   projectId ||
@@ -8,7 +8,19 @@ const client = createClient({
   projectId: pId,
   dataset,
   apiVersion,
-  useCdn: true,
+  useCdn: revalidateSecret ? false : true,
+  perspective: "published",
+  stega: {
+    studioUrl: "/studio",
+    logger: console,
+    filter: (props) => {
+      if (props.sourcePath.at(-1) === "title") {
+        return true;
+      }
+
+      return props.filterDefault(props);
+    },
+  },
 });
 
 export default client;
