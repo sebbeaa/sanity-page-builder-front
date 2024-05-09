@@ -75,31 +75,24 @@ export async function POST(req: NextRequest) {
       _type: string;
       slug?: string | undefined;
     }>(req, revalidateSecret);
+
     if (!isValidSignature) {
-      const message = "Invalid signature";
-      return new Response(message, { status: 401 });
+      return new Response("Invalid Signature", { status: 401 });
     }
+
     if (!body?._type) {
       return new Response("Bad Request", { status: 400 });
     }
-    if (body.slug) {
-      if (body.slug && body._type) {
-        revalidateTag(`${body._type}:${body.slug}`);
-      } else {
-        revalidateTag(body._type);
-      }
-    }
 
-    return NextResponse.json(
-      {
-        revalidated: true,
-        now: Date.now(),
-        body,
-      },
-      { status: 200 }
-    );
-  } catch (err: any) {
-    console.error(err);
-    return new NextResponse(err.message, { status: 500 });
+    revalidateTag(body._type);
+    return NextResponse.json({
+      status: 200,
+      revalidated: true,
+      now: Date.now(),
+      body,
+    });
+  } catch (error: any) {
+    console.error(error);
+    return new Response(error.message, { status: 500 });
   }
 }
