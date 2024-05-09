@@ -2,15 +2,13 @@
 import { loadHomePage } from "@/actions/client/loadQuery";
 import { useEffect, useRef, useState } from "react";
 
-export function HomePage() {
+export function HomePage({ data }: { data: any }) {
   const ref = useRef<any | null>(null);
 
   useEffect(() => {
-    loadHomePage().then((page: any) => {
-      ref.current.innerHTML = page.data.content.html;
-      ref.current.appendChild(document.createElement("style")).innerHTML =
-        page.data.content.css;
-    });
+    ref.current.innerHTML = data.content.html;
+    ref.current.appendChild(document.createElement("style")).innerHTML =
+      data.content.css;
   }, []);
 
   return (
