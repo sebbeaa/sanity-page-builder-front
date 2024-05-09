@@ -1,5 +1,5 @@
 import { createClient } from "next-sanity";
-import { projectId, dataset, apiVersion, revalidateSecret } from "./api";
+import { projectId, dataset, apiVersion } from "./api";
 // Your code here
 const pId: string | any =
   projectId ||
@@ -8,11 +8,11 @@ const client = createClient({
   projectId: pId,
   dataset,
   apiVersion,
-  useCdn: revalidateSecret ? false : true,
+  useCdn: process.env.NODE_ENV === "development" ? true : false,
   perspective: "published",
   stega: {
     studioUrl: "https://visual-sanity-page-builder.vercel.app",
-    logger: console,
+
     filter: (props) => {
       if (props.sourcePath.at(-1) === "title") {
         return true;
