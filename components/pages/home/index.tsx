@@ -1,5 +1,5 @@
 import { Page } from "../page/page";
 
-export default async function Home({ page }: { page: any }) {
+export default function Home({ page }: { page: any }) {
   return <Page data={page.data} />;
 }

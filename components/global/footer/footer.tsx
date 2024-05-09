@@ -1,3 +1,6 @@
+"use client";
 export const FooterNav = ({ footerContent }: { footerContent: any }) => {
-  return <div dangerouslySetInnerHTML={{ __html: footerContent }} />;
+  return (
+    footerContent && <div dangerouslySetInnerHTML={{ __html: footerContent }} />
+  );
 };

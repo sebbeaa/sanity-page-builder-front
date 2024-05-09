@@ -1,3 +1,6 @@
+"use client";
 export const HeaderNav = ({ headerContent }: { headerContent: any }) => {
-  return <div dangerouslySetInnerHTML={{ __html: headerContent }} />;
+  return (
+    headerContent && <div dangerouslySetInnerHTML={{ __html: headerContent }} />
+  );
 };
