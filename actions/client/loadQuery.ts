@@ -2,7 +2,6 @@
 "use server";
 
 import * as queryStore from "@sanity/react-loader";
-import { draftMode } from "next/headers";
 
 import client from "@/actions/client/client";
 
@@ -26,7 +25,9 @@ const usingCdn = serverClient.config().useCdn;
 // Automatically handle draft mode
 export const loadQuery = ((query, params = {}, options = {} as any) => {
   const {
-    perspective = draftMode().isEnabled ? "previewDrafts" : "published",
+    perspective = process.env.VERCEL_ENV === "preview"
+      ? "previewDrafts"
+      : "published",
   } = options;
   // Don't cache by default
   let revalidate: NextFetchRequestConfig["revalidate"] = 0;
@@ -44,7 +45,7 @@ export const loadQuery = ((query, params = {}, options = {} as any) => {
     },
     perspective,
     // Enable stega if in Draft Mode, to enable overlays when outside Sanity Studio
-    stega: draftMode().isEnabled,
+    stega: process.env.VERCEL_ENV === "preview",
   } as any);
 }) satisfies typeof queryStore.loadQuery;
 
@@ -54,19 +55,19 @@ const pageBySlugQuery = `*[_type == "pages" && slug.current == $slug][0]`;
 
 export const loadHomePage = async () => {
   return loadQuery<any | null>(homePageQuery, {}, {
-    next: { tags: [`home`] },
+    next: { tags: [`homeDocument`] },
   } as any);
 };
 
 export const loadSettings = async () => {
   return loadQuery<any>(settingsQuery, {}, {
-    next: { tags: ["settings", "home", "page", "project"] },
+    next: { tags: ["settings", "homeDocument", "pages"] },
   } as any);
 };
 
 export const loadPageBySlug = async (slug: string) => {
   return loadQuery<any | null>(pageBySlugQuery, { slug }, {
-    next: { tags: [`page:${slug}`] },
+    next: { tags: [`pages:${slug}`] },
   } as any);
 };
 
