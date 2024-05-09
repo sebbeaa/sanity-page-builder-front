@@ -1,8 +1,13 @@
 "use server";
-import { loadPageBySlug } from "@/actions/client/loadQuery";
+
 import { Page } from "./page";
 
-export default async function IndexPage({ slug }: { slug: string }) {
-  const page: any = await loadPageBySlug(slug);
+export default async function IndexPage({
+  slug,
+  page,
+}: {
+  slug: string;
+  page: any;
+}) {
   return <Page slug={slug} data={page.data} />;
 }

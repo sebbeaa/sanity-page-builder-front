@@ -2,6 +2,7 @@ import { generateStaticSlugs } from "@/actions/client/generateStaticSlugs";
 import { loadPageBySlug } from "@/actions/client/loadQuery";
 import IndexPage from "@/components/pages/page";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: { slug: string };
@@ -22,5 +23,9 @@ export function generateStaticParams() {
 }
 
 export default async function PageSlugRotate({ params }: Props) {
-  return <IndexPage slug={params.slug} />;
+  const page: any = await loadPageBySlug(params.slug);
+  if (!page) {
+    return notFound();
+  }
+  return <IndexPage page={page} slug={params.slug} />;
 }

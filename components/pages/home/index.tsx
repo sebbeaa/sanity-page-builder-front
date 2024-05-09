@@ -1,8 +1,5 @@
-"use server";
-import { loadHomePage } from "@/actions/client/loadQuery";
 import { HomePage } from "./homePage";
 
-export default async function Home() {
-  const page = await loadHomePage();
+export default async function Home({ page }: { page: any }) {
   return <HomePage data={page.data} />;
 }
