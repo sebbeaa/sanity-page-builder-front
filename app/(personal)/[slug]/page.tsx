@@ -27,5 +27,5 @@ export default async function PageSlugRotate({ params }: Props) {
   if (!page) {
     return notFound();
   }
-  return <IndexPage page={page} slug={params.slug} />;
+  return <IndexPage page={page} />;
 }

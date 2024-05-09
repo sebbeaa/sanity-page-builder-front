@@ -1,5 +1,5 @@
-import { HomePage } from "./homePage";
+import { Page } from "../page/page";
 
 export default async function Home({ page }: { page: any }) {
-  return <HomePage data={page.data} />;
+  return <Page data={page.data} />;
 }
