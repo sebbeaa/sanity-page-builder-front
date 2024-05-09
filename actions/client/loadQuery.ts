@@ -6,6 +6,7 @@ import * as queryStore from "@sanity/react-loader";
 import client from "@/actions/client/client";
 
 import { token } from "@/actions/client/api";
+import { groq } from "next-sanity";
 
 const serverClient = client.withConfig({
   token,
@@ -49,9 +50,9 @@ export const loadQuery = ((query, params = {}, options = {} as any) => {
   } as any);
 }) satisfies typeof queryStore.loadQuery;
 
-const homePageQuery = `*[_type == "homeDocument"][0]`;
-const settingsQuery = `*[_type == "settings"][0]`;
-const pageBySlugQuery = `*[_type == "pages" && slug.current == $slug][0]`;
+const homePageQuery = groq`*[_type == "homeDocument"][0]`;
+const settingsQuery = groq`*[_type == "settings"][0]`;
+const pageBySlugQuery = groq`*[_type == "pages" && slug.current == $slug][0]`;
 
 export const loadHomePage = async () => {
   return loadQuery<any | null>(homePageQuery, {}, {
