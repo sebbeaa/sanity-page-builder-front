@@ -11,7 +11,7 @@ const client = createClient({
   useCdn: revalidateSecret ? false : true,
   perspective: "published",
   stega: {
-    studioUrl: "/studio",
+    studioUrl: "/",
     logger: console,
     filter: (props) => {
       if (props.sourcePath.at(-1) === "title") {
