@@ -1,15 +1,16 @@
 "use client";
-import { loadPageBySlug } from "@/actions/client/client";
+
+import { loadPageBySlug } from "@/actions/client/loadQuery";
 import { useEffect, useRef, useState } from "react";
 export function Page({ slug }: { slug: string }) {
   const ref = useRef<any | null>(null);
 
   useEffect(() => {
-    loadPageBySlug(slug).then((page) => {
+    loadPageBySlug(slug).then((page: any) => {
       console.log(page);
-      ref.current.innerHTML = page.content.html;
+      ref.current.innerHTML = page.data.content.html;
       ref.current.appendChild(document.createElement("style")).innerHTML =
-        page.content.css;
+        page.data.content.css;
     });
   }, [slug]);
 

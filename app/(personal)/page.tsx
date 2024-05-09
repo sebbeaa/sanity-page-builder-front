@@ -1,10 +1,10 @@
 "use server";
 
-import { loadHomePage } from "@/actions/client/client";
+import { loadHomePage } from "@/actions/client/loadQuery";
 import Home from "@/components/pages/home";
 
 export async function generateMetadata() {
-  const home = await loadHomePage();
+  const home: any = await loadHomePage();
   return {
     title: home.seoTitle,
     description: home.overview,

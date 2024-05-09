@@ -1,5 +1,5 @@
-import { loadPageBySlug } from "@/actions/client/client";
 import { generateStaticSlugs } from "@/actions/client/generateStaticSlugs";
+import { loadPageBySlug } from "@/actions/client/loadQuery";
 import IndexPage from "@/components/pages/page";
 import { Metadata } from "next";
 
@@ -9,11 +9,11 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = params;
-  const page = await loadPageBySlug(slug);
+  const page: any = await loadPageBySlug(slug);
 
   return {
-    title: page.title,
-    description: page.overview,
+    title: page.data.title,
+    description: page.data.overview,
   };
 }
 

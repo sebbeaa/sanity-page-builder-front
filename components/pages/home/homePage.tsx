@@ -1,15 +1,15 @@
 "use client";
+import { loadHomePage } from "@/actions/client/loadQuery";
 import { useEffect, useRef, useState } from "react";
-import { loadHomePage } from "@/actions/client/client";
 
 export function HomePage() {
   const ref = useRef<any | null>(null);
 
   useEffect(() => {
-    loadHomePage().then((page) => {
-      ref.current.innerHTML = page.content.html;
+    loadHomePage().then((page: any) => {
+      ref.current.innerHTML = page.data.content.html;
       ref.current.appendChild(document.createElement("style")).innerHTML =
-        page.content.css;
+        page.data.content.css;
     });
   }, []);
 
