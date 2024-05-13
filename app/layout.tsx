@@ -29,8 +29,6 @@ export default async function RootLayout({
           type="image/<generated>"
           sizes="<generated>"
         />
-        <meta httpEquiv="content-language" content="en-US" />
-        <meta httpEquiv="content-language" content="no-NO" />
       </head>
       <body className={inter.className}>{children}</body>
     </html>

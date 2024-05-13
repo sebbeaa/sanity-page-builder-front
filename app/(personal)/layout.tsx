@@ -3,6 +3,7 @@ import { urlForOpenGraphImage } from "@/actions/client/queries";
 import Footer from "@/components/global/footer";
 import Header from "@/components/global/header";
 import { Metadata } from "next";
+import { toPlainText } from "next-sanity";
 
 import { Suspense } from "react";
 
@@ -17,12 +18,14 @@ export async function generateMetadata(): Promise<Metadata> {
     title: homePage?.seoTitle
       ? {
           template: `%s | ${homePage?.seoTitle}`,
-          default: homePage?.seoTitle,
+          default: homePage?.seoTitle
+            ? homePage.seoTitle
+            : "Sebastian Aanstad - website builder",
         }
       : undefined,
     description: homePage?.overview
-      ? homePage.overview
-      : "Sebastian Aanstad's website builder",
+      ? toPlainText(homePage.overview)
+      : "Sebastian Aanstad - website builder",
     openGraph: {
       images: ogImage ? [ogImage] : [],
     },
