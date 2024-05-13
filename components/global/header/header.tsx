@@ -1,6 +1,7 @@
+import { redirect } from "next/navigation";
 import Link from "next/link";
 
-export function NavHeader({ settings }: { settings: any }) {
+export async function NavHeader({ settings }: { settings: any }) {
   const htmlContent = settings?.data?.content?.html;
   const withoutFooter = htmlContent.split("<footer")[0];
 
@@ -11,7 +12,16 @@ export function NavHeader({ settings }: { settings: any }) {
         __html: withoutFooter.replace(
           /<a href="([^"]+)">([^<]+)<\/a>/g,
           (match, href, text) => {
-            return `${(<Link href={href}>${text}</Link>)}`;
+            return `${(
+              <Link
+                onClick={() => {
+                  redirect(href);
+                }}
+                href={href}
+              >
+                ${text}
+              </Link>
+            )}`;
           }
         ),
       }}
