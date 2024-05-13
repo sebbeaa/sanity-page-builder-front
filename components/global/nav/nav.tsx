@@ -1,19 +1,22 @@
-"use server";
-
 import { loadSettings } from "@/actions/client/loadQuery";
 
 export async function NavHeader() {
   const settings: any = await loadSettings();
-  return settings?.data?.content?.html.split("<footer")[0];
+  const html = settings?.data?.content?.html.split("<footer")[0];
+
+  // Replace <a> tags with <Link> components
+  const modifiedHtml = html.replace(/<a\b/g, "<Link");
+
+  return modifiedHtml;
 }
+
 export async function NavFooter() {
   const settings: any = await loadSettings();
+  const html = settings?.data.content?.html.split("<footer")[1];
+  const css = settings?.data.content?.css;
 
-  return (
-    "<footer" +
-    settings?.data.content?.html.split("<footer")[1] +
-    "<style>" +
-    settings?.data.content?.css +
-    "</style>"
-  );
+  // Replace <a> tags with <Link> components
+  const modifiedHtml = html.replace(/<a\b/g, "<Link");
+
+  return "<footer" + modifiedHtml + "<style>" + css + "</style>";
 }
