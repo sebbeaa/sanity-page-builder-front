@@ -1,12 +1,40 @@
 "use client";
+import { loadSettings } from "@/actions/client/loadQuery";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
-import { useEffect, useRef } from "react";
+export function NavHeader() {
+  const [headerContent, setHeaderContent] = useState(null);
 
-export const HeaderNav = ({ headerContent }: { headerContent: any }) => {
-  const ref = useRef<any | null>(null);
   useEffect(() => {
-    ref.current.innerHTML = headerContent;
-  }, [headerContent]);
+    async function fetchContent() {
+      const settings = await loadSettings();
+      const htmlContent = settings?.data?.content?.html;
+      const withoutFooter = htmlContent.split("<footer")[0];
 
-  return <header ref={ref} />;
-};
+      // Create React components from <a> tags
+      const updatedContent: any = (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: withoutFooter.replace(
+              /<a href="([^"]+)">([^<]+)<\/a>/g,
+              (match, href, text) => {
+                return `${(
+                  <Link href="${href}">
+                    <a>${text}</a>
+                  </Link>
+                )}`;
+              }
+            ),
+          }}
+        />
+      );
+
+      setHeaderContent(updatedContent);
+    }
+
+    fetchContent();
+  }, []);
+
+  return headerContent;
+}

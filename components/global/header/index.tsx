@@ -1,6 +1,5 @@
-import { HeaderNav } from "./header";
-import { NavHeader } from "../nav/nav";
+import { NavHeader } from "./header";
+
 export default async function Header() {
-  const header = await NavHeader();
-  return <HeaderNav headerContent={header} />;
+  return <NavHeader />;
 }
