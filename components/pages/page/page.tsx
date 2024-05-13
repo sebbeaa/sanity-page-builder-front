@@ -27,7 +27,7 @@ export function Page({ data }: { data: any }) {
     data &&
     ref && (
       <>
-        <div ref={ref} />
+        <div style={{ marginTop: 20 }} ref={ref} />
       </>
     )
   );
