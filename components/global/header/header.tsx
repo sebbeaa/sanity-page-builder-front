@@ -1,6 +1,12 @@
-import { redirect } from "next/navigation";
+"use server";
 import Link from "next/link";
 
+/**
+ * Renders the navigation header component.
+ *
+ * @param settings - The settings object containing the data for the header.
+ * @returns The rendered header component.
+ */
 export async function NavHeader({ settings }: { settings: any }) {
   const htmlContent = settings?.data?.content?.html;
   const withoutFooter = htmlContent.split("<footer")[0];
@@ -8,18 +14,14 @@ export async function NavHeader({ settings }: { settings: any }) {
   // Create React components from <a> tags
   const updatedContent: any = (
     <div
+      className=" cursor-pointer"
       dangerouslySetInnerHTML={{
         __html: withoutFooter.replace(
           /<a href="([^"]+)">([^<]+)<\/a>/g,
           (match, href, text) => {
             return `${(
-              <Link
-                onClick={() => {
-                  redirect(href);
-                }}
-                href={href}
-              >
-                ${text}
+              <Link rel="canonical" href={href}>
+                {text}
               </Link>
             )}`;
           }

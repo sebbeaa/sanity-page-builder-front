@@ -1,3 +1,19 @@
+* {
+  cursor: default;
+}
+
+Link {
+  cursor: pointer !important;
+}
+
+.menu-icon {
+  cursor: pointer !important;
+}
+
+#nav-toggle {
+  cursor: pointer;
+}
+
 .menu-items {
   display: none !important;
   background-color: #444;

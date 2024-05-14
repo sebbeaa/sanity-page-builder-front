@@ -1,8 +1,8 @@
 {
   "cleanUrls": true,
   "framework": "nextjs",
-  "buildCommand": "pnpm build",
-  "devCommand": "pnpm dev",
+  "buildCommand": "turbo build",
+  "devCommand": "pnpm dev --turbo",
   "installCommand": "pnpm i",
 
   "images": {
